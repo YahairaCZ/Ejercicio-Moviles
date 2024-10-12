@@ -1,20 +1,39 @@
-import { StatusBar } from 'expo-status-bar';
-import { StyleSheet, Text, View } from 'react-native';
+import * as React from 'react';
+import { Button, View, Text } from 'react-native';
+import { NavigationContainer } from '@react-navigation/native';
+import { createNativeStackNavigator } from '@react-navigation/native-stack';
+import HomeScreens from './src/screens/HomeScreens.js';
+import DetailScreens from './src/screens/DetailScreens.js';
+import Third from './src/screens/Third.js';
 
-export default function App() {
+// Configuración del navegador
+const Stack = createNativeStackNavigator();
+
+
+//llamada de screens
+function App() {
   return (
-    <View style={styles.container}>
-      <Text>Open up App.js to start working on your app!</Text>
-      <StatusBar style="auto" />
-    </View>
+    
+    <NavigationContainer>
+      <Stack.Navigator initialRouteName="Home">
+        <Stack.Screen 
+        name="Home" 
+        component={HomeScreens} />
+        
+        
+        <Stack.Screen 
+          name="Details" 
+          component={DetailScreens}
+          initialParams={{ screenText: 'Pantalla de Detalles', buttonText: 'Ir a Tercer pantalla' }} 
+        />
+        
+        <Stack.Screen 
+        name="Third" 
+        component={Third} />
+      </Stack.Navigator>
+    </NavigationContainer>
   );
 }
+export default App;
 
-const styles = StyleSheet.create({
-  container: {
-    flex: 1,
-    backgroundColor: '#fff',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-});
+
